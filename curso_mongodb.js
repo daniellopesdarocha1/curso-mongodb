@@ -1,3 +1,5 @@
+//aula 01
+
 mongo
 
 
@@ -92,8 +94,8 @@ db.alunos.insert(
 )
 
 
----------------------------------------------------------------------------
-
+//---------------------------------------------------------------------------
+//aula 02
 
 db.alunos.find().pretty()
 
@@ -147,9 +149,6 @@ db.alunos.find({
     "nome" : "Felipe",
     "habilidades.nome" : "inglês"
 }).pretty()
-
-
-------------------------------------------------------------------------
 
 
 db.alunos.find({
@@ -207,3 +206,44 @@ db.alunos.find({
             $in: ["Sistemas de informação", "Engenharia Química"]
         }
 }).pretty()
+
+
+//---------------------------------------------------------------------------
+//aula 03
+
+//inseri com nome do curso errado!
+db.alunos.insert({
+    "nome" : "Fernando",
+    "data_nascimento" : new Date(1994, 03, 26),
+    "notas" : [10, 4.5, 7],
+    "curso" : {
+        "nome" : "Sistema de informação"
+    }
+})
+
+
+db.alunos.find({"curso.nome" : "Sistema de informação"}).pretty()
+
+
+// O padrão do UPDATE é alterar apenas o primeiro valor que encontrar
+db.alunos.update(
+    {"curso.nome" : "Sistema de informação"},
+    {
+        $set : {
+            "curso.nome" : "Sistemas de informação"
+        }
+    }
+)
+
+//Para executar para vários registros colocar multiplas linhas igual a true
+db.alunos.update(
+    {"curso.nome" : "Sistemas de informação"},
+    {
+        $set : {
+            "curso.nome" : "Sistemas de Informação"
+        }
+    },{
+        multi : true
+    }
+)
+
