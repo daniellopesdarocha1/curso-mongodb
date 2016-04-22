@@ -247,3 +247,25 @@ db.alunos.update(
     }
 )
 
+
+//adicionado uma nota no array, para array utilizamos o $push
+db.alunos.update(
+    {"_id" : ObjectId("571a84b00461ea724dd62e30")},
+    {
+        $push : {
+            notas : 8.5
+        }
+    }
+)
+
+//para inserir mais de um item de uma só vez em um array usamos o $each
+db.alunos.update(
+    {"_id" : ObjectId("571a84b00461ea724dd62e30")},
+    {
+        $push : {
+            notas : { $each : [8.5, 3] }
+        }
+    }
+)
+
+db.alunos.find({"nome" : "Felipe"}).pretty()
